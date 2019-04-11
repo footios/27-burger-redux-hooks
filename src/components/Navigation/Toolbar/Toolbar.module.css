@@ -1,0 +1,56 @@
+.Toolbar {
+  height: 56px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #703b09;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+  z-index: 90;
+}
+
+.Toolbar nav {
+  height: 100%;
+}
+
+.Logo {
+  height: 80%;
+}
+
+
+
+@media (max-width: 499px) {
+  .DesktopOnly {
+    display: none;
+  }
+  .UserEmail {
+    color: white;
+    display: flex;
+    width: 50%;
+    margin: 50% 100px 50% 210px;;
+    position: relative;
+    animation-name: email;
+    animation-duration: 2s;
+    animation-delay: 0s;
+    animation-iteration-count: 1s
+  }
+}
+
+.UserEmail {
+  color: white;
+  display: flex;
+  margin: 50% 10px 50% 210px;
+  position: relative;
+  animation-name: email;
+  animation-duration: 2s;
+  animation-delay: 0s;
+  animation-iteration-count: 1s
+}
+@keyframes email {
+  0%   {left:-550px; top:0px;}
+  100% {left:-0px; top:0px;}
+}
