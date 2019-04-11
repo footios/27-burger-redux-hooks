@@ -36,7 +36,7 @@ const app = (props) => {
 
 	let routes = (
 		<Switch>
-			<Route path="/auth" exact render={() => <Auth/>} />
+			<Route path="/auth" exact render={(props) => <Auth {...props} />} />
 			<Route path="/" exact component={BurgerBuilder} />
 			{/* <Redirect to='/'/>  this is now reduntant because of  isAuthInitialized */}
 		</Switch>
@@ -46,10 +46,10 @@ const app = (props) => {
 			<Switch>
 				{/* With just 'exact' the order doesn't matter, but with Switch it does! */}
 				{/* The 'exact' in the Route with path='/checkout' was preventing the ContactData to render */}
-				<Route path="/checkout" render={() => <Checkout {...props} />} />
-				<Route path="/orders" exact render={() => <Orders />} />
-				<Route path="/auth" exact render={() => <Auth />} />
-				<Route path="/logout" exact render={() => <Logout />} />
+				<Route path="/checkout" render={(props) => <Checkout {...props} />} />
+				<Route path="/orders" exact render={(props) => <Orders {...props} />} />
+				<Route path="/auth" exact render={(props) => <Auth {...props} />} />
+				<Route path="/logout" exact render={(props) => <Logout {...props} />} />
 				<Route path="/" exact component={BurgerBuilder} />
 			</Switch>
 		);

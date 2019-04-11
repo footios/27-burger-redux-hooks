@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 
 import Order from '../../components/Order/Order';
 import Spinner from '../../components/UI/Spinner/Spinner';
@@ -7,30 +7,26 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions';
 import { connect } from 'react-redux';
 
-class Orders extends Component {
+const orders = (props) => {
+	useEffect(() => {
+		props.onFetchOrders(props.token, props.userId);
+	}, []);
 
-	componentDidMount() {
-		// From orders we fetch an object.
-		this.props.onFetchOrders(this.props.token, this.props.userId);
+	let orders = <Spinner />;
+	if (!props.loading) {
+		orders = props.orders.map((orders) => {
+			// Do this: price={+order.price} so the toFixed(2) will work in Order.js
+			const ingredients = {
+				salad: orders.ingredients.salad,
+				bacon: orders.ingredients.bacon,
+				cheese: orders.ingredients.cheese,
+				meat: orders.ingredients.meat
+			};
+			return <Order key={orders.id} ingredients={ingredients} price={orders.price} date={orders.date} />;
+		});
 	}
-
-	render() {
-		let orders = <Spinner />;
-		if (!this.props.loading) {
-			orders = this.props.orders.map((orders) => {
-				// Do this: price={+order.price} so the toFixed(2) will work in Order.js
-				const ingredients = {
-					salad: orders.ingredients.salad,
-					bacon: orders.ingredients.bacon,
-					cheese: orders.ingredients.cheese,
-					meat: orders.ingredients.meat
-				};
-				return <Order key={orders.id} ingredients={ingredients} price={orders.price} date={orders.date}/>;
-			});
-		}
-		return orders;
-	}
-}
+	return orders;
+};
 
 const mapStateToProps = (state) => {
 	return {
@@ -47,4 +43,4 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(Orders, axios));
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(orders, axios));
