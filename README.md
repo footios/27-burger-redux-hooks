@@ -5,42 +5,64 @@
 
 > Adding Redux to our Project
 
-> Lectures 296 - 305
+> Lectures 297 - 306
+
+
+
+> Section 16
+
+> Redux Advanced
+
+> Lectures 307 - 322
+
+
 
 > Section 17
 
-> Adding Redux to our Project
+> Redux Advanced: Burger Project
 
-> Lectures 322 - 343
+> Lectures 323 - 344
+
 
 
 > Section 18
 
 > Adding Authentication to our Burger Project
 
-> Lectures 344 - 365
+> Lectures 345 - 366
+
 
 
 > Section 19
 
 > Improving our Burger Project
 
-> Lectures 366 - 374
+> Lectures 367 - 375
+
 
 
 > Section 20
 
 > Testing 
 
-> Lectures 375 - 386
+> Lectures 376 - 387
+
 
 
 > Section 21
 
 > Deploying the App to the Web
 
-> Lectures 387 - 392
+> Lectures 388 - 393
 
 Time for all sections (1 -21, with repetitions) 
 320 hours 
 in 2 1/2 (two and a half) months.
+
+...
+
+> Section 27
+
+> Using Hooks in the Burger Builder
+
+> Lectures 476 - 488
