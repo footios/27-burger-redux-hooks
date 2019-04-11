@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Eject from '../Eject/Eject';
 import classes from './Layout.module.css';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
@@ -9,57 +9,61 @@ import { connect } from 'react-redux';
 // in the App comp.
 
 // Child of App
-class Layout extends Component {
-	state = {
-		showSideDrawer: false,
-		DrawerToggleClicked: false // with this the sideDrawer opens only when the button is clicked
-	};
+const layout = props => {
 
-	componentDidMount() {
+	const [showSideDrawer, setShowSideDrawer] = useState(false)
+	const [drawerToggleClicked, setDrawerToggleClicked] = useState(false)
+	// state = {
+	// 	showSideDrawer: false,
+	// 	drawerToggleClicked: false // with this the sideDrawer opens only when the button is clicked
+	// };
+
+	useEffect(() => {
 		window.addEventListener('resize', () => {
-			this.setState((prevState) => {
-				/* Now the sideDrawer open when `window.innerWidth < 500` 
-					and the DrawerToggleClicked button is clicked.
-					Otherwise it opens when window.innerWidth < 500 
-					and keeps on opening on every componentMount,
-					e.g. when adding ingredients*/
-				const DrawerToggleClicked = prevState.DrawerToggleClicked;
-				return {
-					showSideDrawer: window.innerWidth < 500 && DrawerToggleClicked
-				};
-			});
-		});
-	}
 
-	sideDrawerClosedHandler = () => {
-		this.setState({ showSideDrawer: false, DrawerToggleClicked: false });
+			// 	/* Now the sideDrawer opens when `window.innerWidth < 500` 
+			// 		and the drawerToggleClicked button is clicked.
+			// 		Otherwise it opens when window.innerWidth < 500 
+			// 		and keeps on opening on every componentMount,
+			// 		e.g. when adding ingredients*/
+			setShowSideDrawer(window.innerWidth < 500 && drawerToggleClicked)
+		});
+	}, [window.innerWidth < 500 && drawerToggleClicked]) 
+
+
+
+	const sideDrawerClosedHandler = () => {
+		setShowSideDrawer(false);
+		setDrawerToggleClicked(false)
 	};
 
-	sideDrawerToggleHandler = () => {
-		// if (window.innerWidth < 500) {
-		this.setState((prevState) => {
-			return {
-				showSideDrawer: !prevState.showSideDrawer,
-				DrawerToggleClicked: false
-			};
-		});
-		// }
+	const sideDrawerToggleHandler = () => {
+		setShowSideDrawer(!showSideDrawer)
+			// showSideDrawer ? setShowSideDrawer(false) : setShowSideDrawer(true);
+			setDrawerToggleClicked(false)
+
+		// this.setState((prevState) => {
+			// return {
+			// 	showSideDrawer: !prevState.showSideDrawer,
+			// 	drawerToggleClicked: false
+			// };
+		// });
 	};
 
-	render() {
+	
 		return (
 			<Eject>
-				<Toolbar isAuth={this.props.isAuthenticated} DrawerToggleClicked={this.sideDrawerToggleHandler} />
+				<Toolbar isAuth={props.isAuthenticated} drawerToggleClicked={sideDrawerToggleHandler} />
 				<SideDrawer
-					isAuth={this.props.isAuthenticated}
-					open={this.state.showSideDrawer}
-					closed={this.sideDrawerClosedHandler}
+					isAuth={props.isAuthenticated}
+					open={showSideDrawer}
+					closed={sideDrawerClosedHandler}
 				/>
-				<main className={classes.Content}>{this.props.children}</main>
+				<main className={classes.Content}>{props.children}</main>
 			</Eject>
 		);
 	}
-}
+
 
 const mapStateToProps = (state) => {
 	return {
@@ -68,4 +72,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps)(Layout);
+export default connect(mapStateToProps)(layout);
